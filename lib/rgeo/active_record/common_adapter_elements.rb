@@ -96,7 +96,7 @@ module RGeo
       alias_method :method_missing_without_rgeo_modification, :method_missing
 
       def method_missing(method_name_, *args_, &block_)
-        if @base.respond_to?(:spatial_column_constructor) && (info_ = @base.spatial_column_constructor(method_name_))
+        if respond_to?(:spatial_column_constructor) && (info_ = spatial_column_constructor(method_name_))
           info_ = info_.dup
           type_ = (info_.delete(:type) || method_name_).to_s
           opts_ = args_.extract_options!.merge(info_)
